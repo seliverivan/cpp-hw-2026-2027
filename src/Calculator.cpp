@@ -1,4 +1,6 @@
 ﻿#include "Calculator.h"
+#include <Windows.h>
+#include <iostream>
 
 namespace fs = std::filesystem;
 
@@ -88,9 +90,15 @@ int main() {
         runCalculator(lexer, parser);
     }
     catch (const std::exception& e) {
-        std::cerr << "Initialization error: "
-            << e.what() << '\n';
-
+        std::fprintf(
+            stderr,
+            "Initialization error: %s\n",
+            e.what()
+        );
+        return 1;
+    }
+    catch (...) {
+        std::fprintf(stderr, "Unknown initialization error\n");
         return 1;
     }
 

@@ -1,4 +1,3 @@
-#pragma once
 #include "operations/Divide.h"
 #include <stdexcept>
 

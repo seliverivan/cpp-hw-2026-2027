@@ -1,6 +1,7 @@
 #pragma once
 
 #include "operations/Operation.h"
+#include "plugins/PluginEntry.h"
 
 #include <Windows.h>
 #include <memory>
@@ -26,7 +27,7 @@ struct PluginLibrary {
 using CreateOperation = Operation * (*)();
 using DestroyOperation = void (*)(Operation*);
 
-using ExecuteOperation = int (*)(Operation*, const double*, std::size_t, double*, char*, std::size_t);
+using ExecuteOperation = int (*)(Operation*, const PluginExecuteArgs*) noexcept;
 
 class PluginOperation final : public Operation {
 private:

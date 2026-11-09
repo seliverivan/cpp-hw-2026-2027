@@ -1,4 +1,3 @@
-#pragma once
 #include "operations/Add.h"
 #include <stdexcept>
 

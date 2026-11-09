@@ -47,14 +47,31 @@ Associativity PluginOperation::getAssociativity() const {
     return associativity;
 }
 
-double PluginOperation::execute(const std::vector<double>& args) const {
+double PluginOperation::execute(
+    const std::vector<double>& args
+) const {
     double result = 0.0;
     std::array<char, 512> error{};
 
-    int status = executeFunction(implementation.get(), args.data(), args.size(), &result, error.data(), error.size());
+    PluginExecuteArgs params{
+        args.data(),
+        args.size(),
+        &result,
+        error.data(),
+        error.size()
+    };
+
+    int status = executeFunction(
+        implementation.get(),
+        &params
+    );
 
     if (status != 0) {
-        throw std::runtime_error(error[0] ? error.data() : "Plugin execution failed");
+        throw std::runtime_error(
+            error[0] != '\0'
+                ? error.data()
+                : "Plugin execution failed"
+        );
     }
 
     return result;

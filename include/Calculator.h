@@ -10,12 +10,3 @@
 #include "operations/Multiply.h"
 #include "operations/Divide.h"
 #include "operations/UnaryMinus.h"
-
-#include <Windows.h>
-
-#include <filesystem>
-#include <iostream>
-#include <memory>
-#include <stdexcept>
-#include <string>
-#include <utility>

@@ -32,7 +32,10 @@ target_compile_features(Calculator PRIVATE cxx_std_20)
 
 
 function(add_calculator_plugin target source)
-    add_library(${target} SHARED ${source})
+    add_library(${target} SHARED
+        ${source}
+        src/plugins/PluginEntry.cpp
+    )
 
     target_include_directories(${target} PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/include"

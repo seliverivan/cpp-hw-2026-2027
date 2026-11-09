@@ -1,4 +1,3 @@
-#pragma once
 #include "operations/Substract.h"
 #include <stdexcept>
 

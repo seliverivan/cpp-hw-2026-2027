@@ -1,5 +1,7 @@
 
 #include "operations/Operation.h"
+#include "plugins/PluginEntry.h"
+
 #include <cmath>
 #include <stdexcept>
 #include <cstddef>
@@ -30,61 +32,7 @@ public:
     }
 };
 
-extern "C" __declspec(dllexport)
-Operation * createOperation() noexcept {
-    try {
-        return new CosOperation();
-    }
-    catch (...) {
-        return nullptr;
-    }
-}
 
-extern "C" __declspec(dllexport)
-void destroyOperation(Operation * operation) noexcept {
-    try {
-        delete operation;
-    }
-    catch (...) {
-    }
-}
-
-extern "C" __declspec(dllexport)
-int executeOperation(
-    Operation * operation,
-    const double* args,
-    std::size_t count,
-    double* result,
-    char* error,
-    std::size_t errorSize
-) noexcept {
-    try {
-        if (!operation || !result || (!args && count > 0)) {
-            return 1;
-        }
-
-        std::vector<double> values;
-
-        if (count > 0) {
-            values.assign(args, args + count);
-        }
-
-        *result = operation->execute(values);
-        return 0;
-    }
-    catch (const std::exception& e) {
-        if (error && errorSize > 0) {
-            std::snprintf(error, errorSize, "%s", e.what());
-        }
-        return 1;
-    }
-    catch (...) {
-        if (error && errorSize > 0) {
-            std::snprintf(
-                error, errorSize,
-                "%s", "Unknown plugin error"
-            );
-        }
-        return 1;
-    }
+Operation* createPluginInstance() {
+    return new CosOperation();
 }

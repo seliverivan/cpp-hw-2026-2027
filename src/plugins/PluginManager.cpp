@@ -35,7 +35,7 @@ void PluginManager::loadPlugins(
                 throw std::runtime_error("LoadLibrary failed");
             }
 
-            // Временный владелец HMODULE
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ HMODULE
             auto releaseModule = [](HMODULE h) {
                 if (h) FreeLibrary(h);
                 };
@@ -48,7 +48,7 @@ void PluginManager::loadPlugins(
             auto library =
                 std::make_shared<PluginLibrary>(handle);
 
-            moduleGuard.release();
+            (void)moduleGuard.release();
 
             auto create = reinterpret_cast<CreateOperation>(
                 GetProcAddress(handle, "createOperation")

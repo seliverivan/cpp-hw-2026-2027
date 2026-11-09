@@ -61,7 +61,7 @@ Token Lexer::readOperator(std::string::const_iterator& it, std::string::const_it
 
     for (const auto& op : operators) {
         if (!op.empty() && remaining.starts_with(op)) {
-            it += op.size();
+            it = std::next(it, static_cast<std::string::difference_type>(op.size()));
 
             return { TokenType::Operator, op };
         }

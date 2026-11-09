@@ -1,4 +1,3 @@
-#pragma once
 #include "operations/Multiply.h"
 #include <stdexcept>
 
